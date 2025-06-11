@@ -40,8 +40,16 @@ public class RandomStartMap : BasePlugin, IPluginConfig<RandomStartMapConfig>
     {
         if (!_isFirstLoad) return;
         
-        AddTimer(Config.ChangeDelay, async () => {
-            await LoadAndChangeToRandomMapAsync();
+        AddTimer(Config.ChangeDelay, async void () =>
+        {
+            try
+            {
+                await LoadAndChangeToRandomMapAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[RandomStartMap] ERROR: {e.Message}");
+            }
         });
     }
 
